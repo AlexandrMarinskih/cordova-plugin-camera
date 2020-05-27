@@ -1020,6 +1020,12 @@ public class CameraLauncher extends CordovaPlugin implements MediaScannerConnect
             if (options.outWidth == 0 || options.outHeight == 0) {
                 return null;
             }
+            
+            // quick fix exif orientation tag always 0. we need no rotate landscape orientation
+            if (rotate == 0 && options.outWidth > options.outHeight) {
+                rotate = 90;
+            }
+
 
             // User didn't specify output dimensions, but they need orientation
             if (this.targetWidth <= 0 && this.targetHeight <= 0) {
